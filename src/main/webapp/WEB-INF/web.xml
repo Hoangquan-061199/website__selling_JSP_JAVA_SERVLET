@@ -29,4 +29,14 @@
     <servlet-name>ProductControl</servlet-name>
     <url-pattern>/ProductControl</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditControl</display-name>
+    <servlet-name>EditControl</servlet-name>
+    <servlet-class>controller.EditControl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditControl</servlet-name>
+    <url-pattern>/edit</url-pattern>
+  </servlet-mapping>
 </web-app>

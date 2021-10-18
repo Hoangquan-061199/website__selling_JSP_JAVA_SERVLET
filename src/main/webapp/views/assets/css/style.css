@@ -67,6 +67,12 @@ a:hover {
   padding: 0;
 }
 
+
+
+.logout {
+	display: none;
+}
+
 /* Header start */
 header {
   background-color: var(--bs-white);
@@ -170,6 +176,50 @@ header {
   height: 30px;
   margin: 0 12px 0 24px;
   width: 30px;
+}
+
+.user__info {
+  position: relative;
+}
+
+.user__info-title:hover .user__info-body-item {
+  display: flex;
+  transform: translateX(0);
+}
+
+.user__info-body-item {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 190px;
+  background-color: var(--bs-white);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding-top: 10px;
+  border-radius: 5px;
+  transform: translateY(-10px);
+  transition: all 0.3s;
+}
+
+.user__info-body-item::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  background-color: transparent;
+  width: 66px;
+  height: 20px;
+}
+
+.user__info-body li a {
+  display: block;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.user__info-body li a:last-child {
+  border-top: 1px solid var(--bs-color);
 }
 
 .header__group {

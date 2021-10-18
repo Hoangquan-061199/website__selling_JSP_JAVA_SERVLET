@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginControl extends HttpServlet {
@@ -41,8 +42,9 @@ public class LoginControl extends HttpServlet {
 		if (account == null) {
 			req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
 		} else {
-			System.out.println("sai");
-			req.getRequestDispatcher("/views/homepage.jsp").forward(req, resp);
+			HttpSession session = req.getSession();
+			session.setAttribute("acc", account);
+			resp.sendRedirect("home");
 		}
 	}
 	
@@ -54,11 +56,9 @@ public class LoginControl extends HttpServlet {
 		
 		Account account = dao.Login(username, password);
 		if (account == null) {
-			req.setAttribute("mess", "Sai thông tin đang nhập");
 			req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
 		} else {
-			System.out.println("sai");
-			req.getRequestDispatcher("/views/homepage.jsp").forward(req, resp);
+			resp.sendRedirect("home");
 		}
 	}
 }

@@ -27,7 +27,7 @@ public class RegisterControl extends HttpServlet {
 			Account account = dao.checkRegister(username);
 			if(account == null) {
 				dao.Register(username, repassword);
-				resp.sendRedirect("views/homepage.jsp");
+				resp.sendRedirect("home");
 			} else {
 				resp.sendRedirect("views/login.jsp");
 			}

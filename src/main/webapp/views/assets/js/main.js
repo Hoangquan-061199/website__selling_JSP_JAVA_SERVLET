@@ -1,7 +1,5 @@
 $(document).ready(() => {
   // variable
-  const check = "check";
-
   const navCategory = $(".navbar__mobile-category");
   const navList = $(".navbar__list");
   const active = "active";
@@ -36,85 +34,6 @@ $(document).ready(() => {
   const sectionSuggest = $(".section__suggest-products");
   const prevSuggest = $(".prev-suggest-btn");
   const nextSuggest = $(".next-suggest-btn");
-
-  var cart = [];
-
-  // click btn add cart
-  $(".item__product-cart").click(function () {
-    let i = $(this).data("index");
-    console.log(i);
-    let check = false;
-
-    cart.filter((itemCart) => {
-      if (itemCart.id == listProducts[i].id) {
-        itemCart.quantity++;
-        check = true;
-      }
-    });
-
-    if (check == false) {
-      listProducts[i].quantity = 1;
-      cart.push(listProducts[i]);
-    }
-    handleRender();
-  });
-
-  // click btn remove item cart
-  $(".product__cart").on("click", ".product__cart-delete", function () {
-    let msg = confirm("Bạn có muốn xoá sản phẩm này không?");
-    let index = $(this).closest(".product__cart-item").data("index");
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id == index && msg == true) {
-        cart.splice(i, 1);
-        break;
-      }
-    }
-    handleRender();
-  });
-
-  // click minus change value input
-  $(".product__cart").on("click", ".content__quantity-minus", function () {
-    let i = $(this).closest(".product__cart-item").data("index");
-    cart.forEach((item) => {
-      if (item.id == i) {
-        if (item.quantity > 1) {
-          item.quantity -= 1;
-        }
-      }
-    });
-
-    handleRender();
-  });
-
-  // click plus change value input
-  $(".product__cart").on("click", ".content__quantity-plus", function () {
-    let i = $(this).closest(".product__cart-item").data("index");
-
-    cart.forEach((item) => {
-      if (item.id == i && item.quantity < 999) {
-        item.quantity += 1;
-      }
-    });
-    handleRender();
-  });
-
-  // change value input
-  $(".product__cart").on("change", ".input-quantity-product", function () {
-    let i = $(this).closest(".product__cart-item").data("index");
-    let val = $(this).val();
-    if (val > 999) {
-      val = 999;
-    }
-    if (val < 1) {
-      val = 1;
-    }
-    cart.forEach((item) => {
-      if (item.id == i) {
-        item.quantity = val;
-      }
-    });
-    handleRender();
-  });
 
   // click hiden show cart
   const iconCart = $(".header__group-cart-icon");
@@ -289,52 +208,4 @@ $(document).ready(() => {
     a.removeClass(b);
   }
 
-  // function render
-  function handleRender() {
-    $(".product__cart").empty();
-
-    var totalPrice = 0;
-
-    for (let i = 0; i < cart.length; i++) {
-      totalPrice =
-        totalPrice + Number(cart[i].quantity) * Number(cart[i].priceNew);
-      var vnd = Number(cart[i].quantity) * Number(cart[i].priceNew);
-      var html = `
-        <li class="product__cart-item" data-index="${cart[i].id}">
-          <img src="${cart[i].imgSrc}"
-              alt="">
-          <div class="product__cart-item-content">
-              <a href="">${cart[i].name}</a>
-              <p class="product__cart-item-buy">
-                <span>
-                  ${currencyFomat(vnd)}
-                </span>
-              </p>
-              <div class="product__cart-quantily d-flex">
-                <span>Số lượng:</span>
-                <div class="content__quantity-btn">
-                  <button class="content__quantity-minus">-</button>
-                  <input class="input-quantity-product" type="number" max="100" min="1" name="quantily" value="${
-                    cart[i].quantity
-                  }">
-                  <button class="content__quantity-plus">+</button>
-                </div>
-              </div>  
-          </div>
-          <button class="product__cart-delete">Xóa</button>
-        </li>
-      `;
-      $(".product__cart").append(html);
-    }
-    $(".total-pay").html(currencyFomat(totalPrice));
-  }
-
-  // !Function fomat currency
-  function currencyFomat(e) {
-    var cur = new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(e);
-    return cur;
-  }
 });

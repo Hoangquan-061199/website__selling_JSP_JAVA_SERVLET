@@ -31,7 +31,7 @@
                     <div class="header__user hiden-lg">
                         <div class=" header__user-phone d-flex">
                             <img src="https://bizweb.dktcdn.net/100/429/689/themes/825316/assets/call.svg?1627533814663"
-                                alt="phone">
+                                alt="">
                             <div class="header__user-phone-content">
                                 <p>Tư vấn hổ trợ</p>
                                 <a href="tel:0834611599">0834611599</a>
@@ -39,10 +39,23 @@
                         </div>
                         <div class="header__user-login d-flex">
                             <img src="https://bizweb.dktcdn.net/100/429/689/themes/825316/assets/users.svg?1627533814663"
-                                alt="phone">
+                                alt="">
                             <div class="header__user-login-content">
                                 <p>Xin chào!</p>
-                                <a href="/ProductManage/login">Đăng nhập</a>
+                               	<div class="user__info">
+                               		<c:if test="${sessionScrope.acc != null}">
+                                    	<a href="#" class="user__info-title">${sessionScrope.acc.getUsername()}</a>                               		
+                               		</c:if>
+                                    <c:if test="${sessionScrope.acc == null}">
+                                    	<a href="login" class="">Đăng nhập</a>
+                                    </c:if>
+                                    <ul class="user__info-body">
+                                        <li class="user__info-body-item">
+                                            <a href="#">Thông tin người dùng</a>
+                                            <a href="login">Đăng xuất</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -372,7 +385,7 @@
                                         </li>
                                     </ul>
                                 </a></li>
-                            <li class="menu__small-item"><a href="">Tuyển dụng</a></li>
+                            <li class="menu__small-item"><a href="manager">Quản lý sản phẩm</a></li>
                             <li class="menu__small-item"><a href="">Liên hệ</a></li>
                         </ul>
                     </div>

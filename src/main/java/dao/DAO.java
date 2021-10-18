@@ -193,8 +193,8 @@ public class DAO {
 		}
 		return null;
 	}
-	
-	// search 
+
+	// search
 	public List<Product> searchProductByName(String valueSearch) {
 		List<Product> list = new ArrayList<>();
 		String query = "select * from products where name like ?";
@@ -214,7 +214,7 @@ public class DAO {
 
 		return list;
 	}
-	
+
 	// login
 	public Account Login(String uesrname, String password) {
 		String query = "select * from accounts where username = ? and password = ?";
@@ -233,7 +233,7 @@ public class DAO {
 		}
 		return null;
 	}
-	
+
 	public Account checkRegister(String uesrname) {
 		String query = "select * from accounts where username = ?";
 		try {
@@ -250,10 +250,10 @@ public class DAO {
 		}
 		return null;
 	}
-	
+
 	public void Register(String user, String pass) {
 		String query = "insert accounts(username, password, isSell, isAdmin) values (?, ?, 0, 0)";
-		
+
 		try {
 			conn = new DBContext().getConnection(); // open connect mySql
 			ps = conn.prepareStatement(query);
@@ -265,17 +265,73 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void deleteProduct(String id) {
+		String query = "delete from products where id = ?";
+
+		try {
+			conn = new DBContext().getConnection(); // open connect mySql
+			ps = conn.prepareStatement(query);
+			ps.setString(1, id);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addProduct(String name, String imgSrc, String priceNew, String priceLast, String categoryCId,
+			String description) {
+		String query = "insert into products (name, imgSrc, priceNew, priceLast, category_id, description) values (?,?,?,?,?,?)";
+
+		try {
+			conn = new DBContext().getConnection(); // open connect mySql
+			ps = conn.prepareStatement(query);
+			ps.setString(1, name);
+			ps.setString(2, imgSrc);
+			ps.setString(3, priceNew);
+			ps.setString(4, priceLast);
+			ps.setString(5, categoryCId);
+			ps.setString(6, description);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void editProduct(String name, String imgSrc, String priceNew, String priceLast, String categoryCId,
+			String description, String pid) {
+		String query = "update products\r\n"
+				+ "set name = ?,\r\n"
+				+ "imgSrc = ?,\r\n"
+				+ "priceNew = ?,\r\n"
+				+ "priceLast = ?,\r\n"
+				+ "description = ?\r\n"
+				+ "where category_id = ?";
+
+		try {
+			conn = new DBContext().getConnection(); // open connect mySql
+			ps = conn.prepareStatement(query);
+			ps.setString(1, name);
+			ps.setString(2, imgSrc);
+			ps.setString(3, priceNew);
+			ps.setString(4, priceLast);
+			ps.setString(5, categoryCId);
+			ps.setString(6, description);
+			ps.setString(7, pid);
+			ps.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
-		DAO dao = new DAO();
+//		DAO dao = new DAO();
 //		List<Product> list = dao.loginAcc("điện thoại");
 //
 //		for (Product p : list) {
 //			System.out.println(p);
 //		}
-		
-		System.out.println(dao.Login("admin", "12345"));
+
 	}
 
 }
